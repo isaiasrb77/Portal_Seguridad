@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://isaiasrb77.github.io/Portal_Seguridad/sitemap.xml

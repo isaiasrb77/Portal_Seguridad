@@ -9,6 +9,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.firebaseio.com https://*.googleapis.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com wss://*.firebaseio.com; img-src 'self' data: https://upload.wikimedia.org; frame-src https://*.firebaseapp.com https://*.firebaseio.com;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     
@@ -31,6 +33,7 @@
             --texto-blanco: #f3f4f6;
             --texto-mutado: #9ca3af;
             --borde: #1e293b;
+            --sidebar-width: 260px;
         }
 
         body {
@@ -40,93 +43,114 @@
             margin: 0;
             padding: 0;
             display: flex;
+            min-height: 100vh;
+        }
+
+        /* 📁 Panel de Navegación Lateral (Pestañas) */
+        aside {
+            width: var(--sidebar-width);
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid var(--borde);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 90;
+        }
+
+        .sidebar-brand {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--borde);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-circular {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--cian-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #070a12;
+            position: relative;
+        }
+
+        .logo-circular .fa-user-secret { font-size: 1.1rem; color: #fff; }
+        .logo-circular .fa-magnifying-glass { font-size: 0.6rem; color: var(--cian-neon); position: absolute; right: 5px; bottom: 5px; }
+
+        .logo-texto h2 { margin: 0; font-family: 'Fira Code', monospace; font-size: 1.1rem; font-weight: 700; }
+        .logo-texto span { font-size: 0.65rem; color: var(--cian-neon); text-transform: uppercase; letter-spacing: 1px; display: block; }
+
+        .nav-tabs {
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--texto-mutado);
+            padding: 0.8rem 1.5rem;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--texto-blanco);
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .tab-btn.active {
+            color: var(--cian-neon);
+            background: rgba(0, 242, 254, 0.05);
+            border-left-color: var(--cian-neon);
+        }
+
+        /* 🌐 Contenedor de Contenido Principal */
+        .content-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
         header {
-            background-color: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
+            background-color: rgba(7, 10, 18, 0.8);
+            backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--borde);
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-end;
             position: sticky;
             top: 0;
-            z-index: 100;
-        }
-
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            text-decoration: none;
-        }
-
-        .logo-circular {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid var(--cian-neon);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle, #0f172a 0%, #070a12 100%);
-            position: relative;
-        }
-
-        .logo-circular .fa-user-secret {
-            font-size: 1.4rem;
-            color: var(--texto-blanco);
-            z-index: 1;
-        }
-
-        .logo-circular .fa-magnifying-glass {
-            font-size: 0.75rem;
-            color: var(--cian-neon);
-            position: absolute;
-            right: 8px;
-            bottom: 8px;
-            z-index: 2;
-            background: var(--bg-principal);
-            border-radius: 50%;
-            padding: 2px;
-            box-shadow: 0 0 5px var(--cian-neon);
-        }
-
-        .logo-texto {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-titulo {
-            font-family: 'Fira Code', monospace;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--texto-blanco);
-            letter-spacing: 1px;
-            line-height: 1.2;
-        }
-
-        .logo-subtitulo {
-            font-size: 0.75rem;
-            color: var(--cian-neon);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
+            z-index: 80;
         }
 
         .buscador-container {
             position: relative;
-            width: 320px;
+            width: 350px;
         }
 
         .buscador-container input {
             width: 100%;
             padding: 0.6rem 1rem 0.6rem 2.5rem;
-            background-color: var(--bg-principal);
+            background-color: var(--bg-tarjeta);
             border: 1px solid var(--borde);
             border-radius: 8px;
             color: var(--texto-blanco);
@@ -137,7 +161,7 @@
         .buscador-container input:focus {
             outline: none;
             border-color: var(--cian-neon);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
         }
 
         .buscador-container i {
@@ -149,49 +173,50 @@
         }
 
         main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            padding: 2rem 2.5rem;
             flex: 1;
         }
 
-        .hero {
-            text-align: center;
-            margin-bottom: 4rem;
-            margin-top: 1.5rem;
+        /* 🎛️ Control de Visibilidad de Pestañas */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
         }
 
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--texto-blanco), var(--texto-mutado));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Componentes de Interfaz */
+        .hero { margin-bottom: 3rem; }
+        .hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .hero p { color: var(--texto-mutado); font-size: 1.05rem; margin: 0; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .hero p {
-            color: var(--texto-mutado);
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
+        .card-resumen {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
         }
+        .card-resumen:hover { border-color: rgba(0, 242, 254, 0.3); }
 
-        .seccion-programas {
-            margin-bottom: 4rem;
-        }
+        .card-header-suite { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+        .card-header-suite i { font-size: 1.8rem; color: var(--cian-neon); }
+        .card-header-suite h3 { margin: 0; font-size: 1.3rem; }
 
         .programa-detallado {
             background-color: var(--bg-tarjeta);
             border: 1px solid var(--borde);
             border-radius: 12px;
             padding: 2.5rem;
-            margin-bottom: 3rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .programa-detallado:hover {
-            border-color: rgba(0, 242, 254, 0.4);
+            margin-bottom: 2rem;
         }
 
         .programa-meta {
@@ -201,24 +226,6 @@
             border-bottom: 1px solid var(--borde);
             padding-bottom: 1.5rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .programa-titulo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .programa-titulo i {
-            font-size: 2.2rem;
-            color: var(--cian-neon);
-        }
-
-        .programa-titulo h2 {
-            margin: 0;
-            font-size: 1.8rem;
         }
 
         .funcionalidades-grid {
@@ -234,37 +241,11 @@
             padding: 1.2rem;
             border-radius: 8px;
         }
+        .funcionalidad-item h4 { margin: 0 0 0.5rem 0; color: var(--cian-neon); display: flex; align-items: center; gap: 0.5rem; }
+        .funcionalidad-item p { margin: 0; font-size: 0.9rem; color: var(--texto-mutado); line-height: 1.5; }
 
-        .funcionalidad-item h4 {
-            margin: 0 0 0.5rem 0;
-            color: var(--cian-neon);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .funcionalidad-item p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: var(--texto-mutado);
-            line-height: 1.5;
-        }
-
-        .tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background-color: rgba(30, 41, 59, 0.5);
-            border: 1px solid var(--borde);
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-family: 'Fira Code', monospace;
-            color: var(--cian-neon);
-        }
+        .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .tag { background-color: rgba(30, 41, 59, 0.5); border: 1px solid var(--borde); padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem; font-family: 'Fira Code', monospace; color: var(--cian-neon); }
 
         .btn-link {
             display: inline-flex;
@@ -280,132 +261,19 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
+        .btn-link:hover { background: linear-gradient(135deg, var(--cian-neon), var(--verde-neon)); color: var(--bg-principal); }
 
-        .btn-link:hover {
-            background: linear-gradient(135deg, var(--cian-neon), var(--verde-neon));
-            color: var(--bg-principal);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-        }
+        .disclaimer-box { background-color: var(--bg-alerta); border-left: 4px solid var(--rojo-alerta); border: 1px solid var(--borde); border-left-width: 4px; padding: 1.5rem; border-radius: 8px; margin-top: 3rem; display: flex; gap: 1rem; }
+        .disclaimer-box i { font-size: 1.4rem; color: var(--rojo-alerta); }
+        .disclaimer-box h3 { margin: 0 0 0.4rem 0; font-size: 1.05rem; }
+        .disclaimer-box p { margin: 0; color: var(--texto-mutado); font-size: 0.9rem; line-height: 1.5; }
 
-        .disclaimer-box {
-            background-color: var(--bg-alerta);
-            border-left: 4px solid var(--rojo-alerta);
-            border-top: 1px solid var(--borde);
-            border-right: 1px solid var(--borde);
-            border-bottom: 1px solid var(--borde);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .disclaimer-box i {
-            font-size: 1.5rem;
-            color: var(--rojo-alerta);
-            margin-top: 0.2rem;
-        }
-
-        .disclaimer-box h3 {
-            margin: 0 0 0.5rem 0;
-            color: var(--texto-blanco);
-            font-size: 1.1rem;
-        }
-
-        .disclaimer-box p {
-            margin: 0;
-            color: var(--texto-mutado);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .seccion-legal {
-            background-color: rgba(15, 23, 42, 0.4);
-            border: 1px dashed var(--borde);
-            border-radius: 12px;
-            padding: 2rem;
-        }
-
-        .seccion-legal h3 {
-            margin-top: 0;
-            color: var(--verde-neon);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .seccion-legal p {
-            font-size: 0.9rem;
-            color: var(--texto-mutado);
-            line-height: 1.6;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--texto-mutado);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--borde);
-            background-color: rgba(15, 23, 42, 0.2);
-        }
-
-        /* 🗝️ Modal de Autenticación */
-        #login-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(7, 10, 18, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 999;
-            display: none; /* Controlado dinámicamente */
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-card {
-            background: #0f172a;
-            padding: 2.5rem;
-            border-radius: 12px;
-            border: 1px solid #1e293b;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
-            position: relative;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            background: none;
-            border: none;
-            color: var(--texto-mutado);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        .close-modal-btn:hover {
-            color: var(--rojo-alerta);
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 0.7rem;
-            background: #070a12;
-            border: 1px solid #1e293b;
-            border-radius: 6px;
-            color: #fff;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .login-input:focus {
-            outline: none;
-            border-color: var(--cian-neon);
-        }
+        /* 🗝️ Estilos del Modal */
+        #login-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 10, 18, 0.85); backdrop-filter: blur(8px); z-index: 999; display: none; align-items: center; justify-content: center; }
+        .login-card { background: #0f172a; padding: 2.5rem; border-radius: 12px; border: 1px solid #1e293b; width: 100%; max-width: 400px; text-align: center; position: relative; }
+        .close-modal-btn { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--texto-mutado); font-size: 1.2rem; cursor: pointer; }
+        .login-input { width: 100%; padding: 0.7rem; background: #070a12; border: 1px solid #1e293b; border-radius: 6px; color: #fff; box-sizing: border-box; }
+        .login-input:focus { outline: none; border-color: var(--cian-neon); }
     </style>
 </head>
 <body>
@@ -413,10 +281,10 @@
     <div id="login-modal">
         <div class="login-card">
             <button class="close-modal-btn" onclick="cerrarModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--cian-neon); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto; background: #070a12; box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);">
+            <div style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--cian-neon); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto; background: #070a12;">
                 <i class="fa-solid fa-user-secret" style="color: var(--cian-neon); font-size: 1.6rem;"></i>
             </div>
-            <h2 style="margin: 0 0 0.5rem 0; font-family: 'Fira Code', monospace; font-size: 1.5rem;">Autenticación Requerida</h2>
+            <h2 style="margin: 0 0 0.5rem 0; font-family: 'Fira Code', monospace; font-size: 1.4rem;">Autenticación Requerida</h2>
             <p style="color: #9ca3af; font-size: 0.85rem; margin-bottom: 2rem;">Inicie sesión para descargar u obtener acceso al código fuente de la suite.</p>
             
             <form id="login-form" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
@@ -428,140 +296,189 @@
                     <label style="font-size: 0.85rem; color: #9ca3af; display: block; margin-bottom: 0.4rem;">Contraseña</label>
                     <input type="password" id="login-password" class="login-input" required autocomplete="current-password">
                 </div>
-                <button type="submit" style="background: var(--cian-neon); color: #070a12; border: none; padding: 0.75rem; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 0.5rem; font-size: 0.95rem; width: 100%;">Ingresar / Registrarse</button>
+                <button type="submit" style="background: var(--cian-neon); color: #070a12; border: none; padding: 0.75rem; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%;">Ingresar / Registrarse</button>
             </form>
-            
-            <div style="margin: 1.3rem 0; color: #4b5563; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;">— O BIEN —</div>
-            
-            <button id="btn-google" style="width: 100%; padding: 0.75rem; background: #fff; color: #000; border: none; border-radius: 6px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; font-size: 0.95rem;">
+            <div style="margin: 1rem 0; color: #4b5563; font-size: 0.8rem;">— O BIEN —</div>
+            <button id="btn-google" style="width: 100%; padding: 0.75rem; background: #fff; color: #000; border: none; border-radius: 6px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width: 18px;">
                 Continuar con Google
             </button>
         </div>
     </div>
 
-    <header>
-        <div class="brand-container">
+    <aside>
+        <div class="sidebar-brand">
             <div class="logo-circular">
                 <i class="fa-solid fa-user-secret"></i>
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <div class="logo-texto">
-                <span class="logo-titulo">OMNI-AUDIT</span>
-                <span class="logo-subtitulo">Cyber Defense Framework</span>
+                <h2>OMNI-AUDIT</h2>
+                <span>Cyber Defense</span>
             </div>
         </div>
-        
-        <div class="buscador-container">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="inputBuscador" placeholder="Buscar módulos o especificaciones..." autocomplete="off">
-        </div>
-    </header>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="cambiarPestaña('pestaña-inicio')">
+                <i class="fa-solid fa-house-crack"></i> Inicio / General
+            </button>
+            <button class="tab-btn" onclick="cambiarPestaña('pestaña-miscanner')">
+                <i class="fa-solid fa-network-wired"></i> MiScanner_Web
+            </button>
+            <button class="tab-btn" onclick="cambiarPestaña('pestaña-scanner')">
+                <i class="fa-solid fa-shield-halved"></i> ScannerVulnerabilidades
+            </button>
+            <button class="tab-btn" onclick="cambiarPestaña('pestaña-docs')">
+                <i class="fa-solid fa-book-bookmark"></i> Documentación / Info
+            </button>
+        </nav>
+    </aside>
 
-    <main>
-        <section class="hero">
-            <h1>Suite Automatizada de Seguridad de la Información</h1>
-            <p>Infraestructura optimizada para la auditoría y detección proactiva de vectores de ataque web bajo estándares OWASP.</p>
-        </section>
+    <div class="content-wrapper">
+        <header>
+            <div class="buscador-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="inputBuscador" placeholder="Buscar módulos, funciones, OWASP..." autocomplete="off">
+            </div>
+        </header>
 
-        <section class="seccion-programas" id="contenedorProgramas">
+        <main>
             
-            <article class="programa-detallado" data-keywords="miscanner web python osint recon footprinting crawling informacion">
-                <div class="programa-meta">
-                    <div class="programa-titulo">
-                        <i class="fa-solid fa-network-wired"></i>
-                        <div>
-                            <h2>MiScanner_Web (v9.0)</h2>
-                            <div class="tags" style="margin-top: 0.5rem;">
+            <section id="pestaña-inicio" class="tab-content active" data-search-scope="inicio general omni audit core dashboard suite">
+                <div class="hero">
+                    <h1>Portal de Seguridad OMNI-AUDIT</h1>
+                    <p>Bienvenido al centro de mando. Selecciona una herramienta del menú lateral o examina el resumen analítico.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card-resumen" onclick="cambiarPestaña('pestaña-miscanner')" data-search-scope="miscanner modulo recon">
+                        <div class="card-header-suite">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <h3>MiScanner_Web</h3>
+                        </div>
+                        <p style="color: var(--texto-mutado); font-size: 0.9rem; margin: 0;">Motor dedicado al reconocimiento pasivo, mapeo de directorios y extracción OSINT corporativa.</p>
+                    </div>
+
+                    <div class="card-resumen" onclick="cambiarPestaña('pestaña-scanner')" data-search-scope="scannervulnerabilidades modulo owasp top 10 pentesting">
+                        <div class="card-header-suite">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <h3>ScannerVulnerabilidades</h3>
+                        </div>
+                        <p style="color: var(--texto-mutado); font-size: 0.9rem; margin: 0;">Suite automatizada para inyección controlada, auditorías OWASP Top 10 y reportes de hardening.</p>
+                    </div>
+                </div>
+
+                <div class="programa-detallado" data-search-scope="arquitectura nucleo core estabilidad">
+                    <h3>Visión de la Infraestructura</h3>
+                    <p>OMNI-AUDIT consolida operaciones cibernéticas de forma secuencial: primero delimitando el footprinting digital del objetivo y luego ejecutando análisis de resiliencia estructural. Todo de manera centralizada.</p>
+                </div>
+            </section>
+
+            <section id="pestaña-miscanner" class="tab-content" data-search-scope="miscanner web python osint recon footprinting crawling informacion">
+                <article class="programa-detallado">
+                    <div class="programa-meta">
+                        <div class="programa-titulo">
+                            <h2 style="margin:0; font-size: 1.8rem; font-family:'Fira Code', monospace;"><i class="fa-solid fa-network-wired" style="color:var(--cian-neon)"></i> MiScanner_Web (v9.0)</h2>
+                            <div class="tags" style="margin-top: 0.6rem;">
                                 <span class="tag">Python 3</span>
                                 <span class="tag">Reconnaissance</span>
                                 <span class="tag">OSINT Engine</span>
                             </div>
                         </div>
+                        <div onclick="verificarAcceso('https://github.com/isaiasrb77/MiScanner_Web')" class="btn-link">
+                            <i class="fa-brands fa-github"></i> Obtener Código
+                        </div>
                     </div>
-                    <div onclick="verificarAcceso('https://github.com/isaiasrb77/MiScanner_Web')" class="btn-link">
-                        <i class="fa-brands fa-github"></i> Código Fuente
+                    
+                    <h3>Descripción Operativa</h3>
+                    <p>Automatiza las fases críticas de reconocimiento pasivo y activo sobre aplicaciones web expuestas para delimitar perímetros de red y vulnerabilidades lógicas preliminares.</p>
+                    
+                    <h3>Módulos de Ejecución</h3>
+                    <div class="funcionalidades-grid">
+                        <div class="funcionalidad-item" data-search-scope="crawling mapeo directorios spider">
+                            <h4><i class="fa-solid fa-spider"></i> Web Crawling Inteligente</h4>
+                            <p>Mapeo algorítmico recursivo de directorios ocultos, indexación de archivos y descubrimiento de endpoints internos.</p>
+                        </div>
+                        <div class="funcionalidad-item" data-search-scope="osint headers extract">
+                            <h4><i class="fa-solid fa-fingerprint"></i> Extracción OSINT</h4>
+                            <p>Recolección y análisis de cabeceras HTTP de servidores, identificación de tecnologías obsoletas y fugas de metadatos.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <h3>Función Principal</h3>
-                <p>Automatizar las fases críticas de reconocimiento pasivo y activo (*Footprinting*) sobre aplicaciones web expuestas para delimitar perímetros de red y vulnerabilidades lógicas preliminares.</p>
-                
-                <h3>Funcionalidades Clave</h3>
-                <div class="funcionalidades-grid">
-                    <div class="funcionalidad-item">
-                        <h4><i class="fa-solid fa-spider"></i> Web Crawling Inteligente</h4>
-                        <p>Mapeo algorítmico recursivo de directorios ocultos, indexación de archivos y descubrimiento de endpoints internos.</p>
-                    </div>
-                    <div class="funcionalidad-item">
-                        <h4><i class="fa-solid fa-fingerprint"></i> Extracción OSINT</h4>
-                        <p>Recolección y análisis de cabeceras HTTP de servidores, identificación de tecnologías obsoletas y fugas de metadatos.</p>
-                    </div>
-                </div>
-            </article>
+                </article>
+            </section>
 
-            <article class="programa-detallado" data-keywords="scanner vulnerabilidades owasp sqli xss lfi fuzzer brute force hydra exploits">
-                <div class="programa-meta">
-                    <div class="programa-titulo">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <div>
-                            <h2>ScannerVulnerabilidades (v9.0)</h2>
-                            <div class="tags" style="margin-top: 0.5rem;">
+            <section id="pestaña-scanner" class="tab-content" data-search-scope="scanner vulnerabilidades owasp sqli xss lfi fuzzer brute force hydra exploits">
+                <article class="programa-detallado">
+                    <div class="programa-meta">
+                        <div class="programa-titulo">
+                            <h2 style="margin:0; font-size: 1.8rem; font-family:'Fira Code', monospace;"><i class="fa-solid fa-shield-halved" style="color:var(--cian-neon)"></i> ScannerVulnerabilidades (v9.0)</h2>
+                            <div class="tags" style="margin-top: 0.6rem;">
                                 <span class="tag">Pentesting Suite</span>
                                 <span class="tag">OWASP Top 10</span>
                                 <span class="tag">Automation</span>
                             </div>
                         </div>
+                        <div onclick="verificarAcceso('https://github.com/isaiasrb77/ScannerVulnerabilidades')" class="btn-link">
+                            <i class="fa-brands fa-github"></i> Obtener Código
+                        </div>
                     </div>
-                    <div onclick="verificarAcceso('https://github.com/isaiasrb77/ScannerVulnerabilidades')" class="btn-link">
-                        <i class="fa-brands fa-github"></i> Código Fuente
+                    
+                    <h3>Descripción Operativa</h3>
+                    <p>Framework modular parametrizado para la inyección controlada de cargas y stress-testing sobre puntos de entrada interactivos, validando la solidez de las defensas web.</p>
+                    
+                    <h3>Vectores Soportados</h3>
+                    <div class="funcionalidades-grid">
+                        <div class="funcionalidad-item" data-search-scope="fuzzing owasp sqli xss lfi bug injection">
+                            <h4><i class="fa-solid fa-bug"></i> Fuzzing Temático OWASP</h4>
+                            <p>Detección proactiva de inyecciones SQL (SQLi), Cross-Site Scripting (XSS) y Local File Inclusion (LFI) mediante diccionarios dinámicos.</p>
+                        </div>
+                        <div class="funcionalidad-item" data-search-scope="fuerza bruta hydra key pass wordlist">
+                            <h4><i class="fa-solid fa-key"></i> Auditoría de Fuerza Bruta</h4>
+                            <p>Módulos de autenticación de red acoplados nativamente con diccionarios optimizados para auditar la robustez de credenciales.</p>
+                        </div>
+                        <div class="funcionalidad-item" data-search-scope="reportes hardening logs ip txt">
+                            <h4><i class="fa-solid fa-file-shield"></i> Reportes de Hardening</h4>
+                            <p>Consolidación instantánea de vectores descubiertos estructurados de manera cronológica en logs locales ordenados por IP.</p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section id="pestaña-docs" class="tab-content" data-search-scope="documentacion info legal leyes educativa licencias dominicana">
+                <div class="programa-detallado">
+                    <h2><i class="fa-solid fa-book-bookmark" style="color:var(--cian-neon)"></i> Centro de Documentación y Marco Legal</h2>
+                    <p>Espacio informativo diseñado para comprender las pautas internacionales de auditorías de ciberseguridad y el uso correcto del ecosistema.</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h3>Metodología OWASP Utilizada</h3>
+                        <p style="color: var(--texto-mutado); line-height: 1.6;">El framework OMNI-AUDIT asimila las directrices del manual de pruebas de seguridad OWASP (WSTG), enfocándose en la validación de controles de autenticación, validación de datos de entrada y configuraciones seguras del servidor.</p>
                     </div>
                 </div>
-                
-                <h3>Función Principal</h3>
-                <p>Framework modular parametrizado para la inyección controlada de cargas y stress-testing sobre puntos de entrada interactivos, validando la solidez de las defensas web.</p>
-                
-                <h3>Funcionalidades Clave</h3>
-                <div class="funcionalidades-grid">
-                    <div class="funcionalidad-item">
-                        <h4><i class="fa-solid fa-bug"></i> Fuzzing Temático OWASP</h4>
-                        <p>Detección proactiva de inyecciones SQL (SQLi), Cross-Site Scripting (XSS) y Local File Inclusion (LFI) mediante diccionarios dinámicos.</p>
-                    </div>
-                    <div class="funcionalidad-item">
-                        <h4><i class="fa-solid fa-key"></i> Auditoría de Fuerza Bruta</h4>
-                        <p>Módulos de autenticación de red acoplados nativamente con diccionarios optimizados para auditar la robustez de credenciales.</p>
-                    </div>
-                    <div class="funcionalidad-item">
-                        <h4><i class="fa-solid fa-file-shield"></i> Reportes de Hardening</h4>
-                        <p>Consolidación instantánea de vectores descubiertos estructurados de manera cronológica en logs locales ordenados por IP.</p>
-                    </div>
+
+                <section class="seccion-legal" data-search-scope="copyright intellectual propiedad">
+                    <h3><i class="fa-solid fa-gavel"></i> Licencia y Protección de Propiedad Intelectual</h3>
+                    <p><strong>© 2026 OMNI-AUDIT Developers. Todos los derechos reservados.</strong></p>
+                    <p>Queda estrictamente prohibida la reproducción, distribución, comercialización, ingeniería inversa o modificación total o parcial del código fuente de las aplicaciones aquí listadas sin la autorización expresa, previa y por escrito del autor legítimo. El código expuesto en los repositorios de GitHub vinculados opera bajo términos de Propiedad Intelectual Estricta.</p>
+                </section>
+            </section>
+
+            <div class="disclaimer-box" data-search-scope="disclaimer aviso etico legal ley">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <h3>Aviso de Exención de Responsabilidad y Uso Ético</h3>
+                    <p>Las herramientas descritas en este portal han sido desarrolladas exclusivamente para fines de investigación académica, optimización de sistemas y auditorías de penetración legítimas bajo mutuo acuerdo escrito. El uso de este software sin autorización expresa en entornos ajenos es ilegal.</p>
                 </div>
-            </article>
-
-        </section>
-
-        <div class="disclaimer-box">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <div>
-                <h3>Aviso de Exención de Responsabilidad y Uso Ético</h3>
-                <p>Las herramientas descritas en este portal han sido desarrolladas exclusivamente para fines de investigación académica, optimización de sistemas y auditorías de penetración legítimas bajo mutuo acuerdo escrito. El uso de este software sin autorización expresa en entornos ajenos es estrictamente ilegal y sancionable por las leyes internacionales de delitos de alta tecnología.</p>
             </div>
-        </div>
 
-        <section class="seccion-legal">
-            <h3><i class="fa-solid fa-gavel"></i> Licencia y Protección de Propiedad Intelectual</h3>
-            <p><strong>© 2026 OMNI-AUDIT Developers. Todos los derechos reservados.</strong></p>
-            <p>Queda estrictamente prohibida la reproducción, distribution, comercialización, ingeniería inversa o modificación total o parcial del código fuente de las aplicaciones aquí listadas sin la autorización expresa, previa y por escrito del autor legítimo. El código expuesto en los repositorios de GitHub vinculados opera bajo términos de **Propiedad Intelectual Estricta**, diseñada para resguardar la autoría intelectual frente a plagios o reclamaciones comerciales de terceros no autorizados.</p>
-        </section>
-    </main>
+        </main>
 
-    <footer>
-        <p>Portal Asegurado Estáticamente | Arquitectura Anti-Vulnerabilidades | República Dominicana.</p>
-    </footer>
+        <footer>
+            <p>Portal Asegurado Estáticamente | Arquitectura SPA Anti-Vulnerabilidades | República Dominicana.</p>
+        </footer>
+    </div>
 
     <script>
         // ==========================================
-        // 1. INITIALIZE FIREBASE AUTHENTICATION
+        // 1. CONFIGURACIÓN DE FIREBASE
         // ==========================================
         const firebaseConfig = {
             apiKey: "TU_API_KEY_AQUÍ",
@@ -572,17 +489,15 @@
             appId: "TU_APP_ID"
         };
 
-        // Verificación estructural preventiva para evitar pantallas negras en caso de llaves vacías
         if (firebaseConfig.apiKey !== "TU_API_KEY_AQUÍ") {
             firebase.initializeApp(firebaseConfig);
         } else {
-            console.warn("OMNI-AUDIT: Firebase operando en modo simulación de desarrollo local.");
+            console.warn("OMNI-AUDIT: Modo Simulación Activado.");
         }
 
         let usuarioAutenticado = null;
         let urlDestinoPendiente = null;
 
-        // Escucha en tiempo real si Firebase está inicializado
         try {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
@@ -596,19 +511,10 @@
                     usuarioAutenticado = null;
                 }
             });
-        } catch(e) {
-            console.log("Firebase Auth pendiente de credenciales reales.");
-        }
+        } catch(e) {}
 
-        // ==========================================
-        // 2. FUNCIÓN GUARDA DE ACCESO (GATEKEEPER)
-        // ==========================================
         function verificarAcceso(urlDestino) {
-            // Modo Desarrollo/Producción unificado
             if (usuarioAutenticado || firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
-                if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
-                    console.log("Acceso de prueba permitido (Entorno Local).");
-                }
                 window.open(urlDestino, '_blank', 'noopener,noreferrer');
             } else {
                 urlDestinoPendiente = urlDestino;
@@ -616,63 +522,98 @@
             }
         }
 
-        function cerrarModal() {
-            document.getElementById('login-modal').style.display = 'none';
-        }
+        function cerrarModal() { document.getElementById('login-modal').style.display = 'none'; }
 
-        // Evento: Formulario tradicional (Email/Password)
+        // Eventos Login
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
-                alert("Simulación de éxito: Configura tus credenciales reales de Firebase.");
-                cerrarModal();
-                if (urlDestinoPendiente) { window.open(urlDestinoPendiente, '_blank'); }
+                alert("Simulación exitosa."); cerrarModal();
+                if (urlDestinoPendiente) window.open(urlDestinoPendiente, '_blank');
                 return;
             }
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .catch(error => {
-                    if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-                        return firebase.auth().createUserWithEmailAndPassword(email, password);
-                    } else {
-                        alert("Error de credenciales: " + error.message);
-                    }
-                });
-        });
-
-        // Evento: Google Login OAuth Pop-up
-        document.getElementById('btn-google').addEventListener('click', () => {
-            if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
-                alert("Simulación de Google Auth exitosa.");
-                cerrarModal();
-                if (urlDestinoPendiente) { window.open(urlDestinoPendiente, '_blank'); }
-                return;
-            }
-            const googleProvider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(googleProvider).catch(error => {
-                alert("Error de conexión con Google: " + error.message);
+            firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                    return firebase.auth().createUserWithEmailAndPassword(email, password);
+                } else { alert(error.message); }
             });
         });
 
+        document.getElementById('btn-google').addEventListener('click', () => {
+            if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
+                alert("Simulación Google Auth exitosa."); cerrarModal();
+                if (urlDestinoPendiente) window.open(urlDestinoPendiente, '_blank');
+                return;
+            }
+            const googleProvider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(googleProvider).catch(error => alert(error.message));
+        });
+
         // ==========================================
-        // 3. BUSCADOR INTERNO SANITIZADO
+        // 2. SISTEMA INTERACTIVO DE PESTAÑAS (SPA)
+        // ==========================================
+        function cambiarPestaña(pestañaId) {
+            // Desactivar todos los contenidos y botones
+            document.querySelectorAll('.tab-content').forEach(contenido => contenido.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(boton => boton.classList.remove('active'));
+
+            // Activar el seleccionado
+            document.getElementById(pestañaId).classList.add('active');
+            
+            // Buscar el botón correspondiente para iluminarlo
+            const botonActivo = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(pestañaId));
+            if (botonActivo) botonActivo.classList.add('active');
+
+            // Limpiar buscador al cambiar de sección
+            document.getElementById('inputBuscador').value = "";
+            mostrarTodosLosElementos();
+        }
+
+        function mostrarTodosLosElementos() {
+            document.querySelectorAll('.programa-detallado, .card-resumen, .funcionalidad-item, .seccion-legal, .disclaimer-box').forEach(el => {
+                el.style.display = '';
+            });
+        }
+
+        // ==========================================
+        // 3. BUSCADOR GLOBAL INTELIGENTE ENTRE PESTAÑAS
         // ==========================================
         document.getElementById('inputBuscador').addEventListener('input', function(e) {
             const entradaCruda = e.target.value;
-            const contenedorDeControl = document.createElement('div');
-            contenedorDeControl.textContent = entradaCruda;
-            const entradaSegura = contenedorDeControl.innerHTML.toLowerCase().trim();
+            const controlDiv = document.createElement('div');
+            controlDiv.textContent = entradaCruda;
+            const entradaSegura = controlDiv.innerHTML.toLowerCase().trim();
 
-            const programas = document.querySelectorAll('.programa-detallado');
+            if (entradaSegura === "") {
+                mostrarTodosLosElementos();
+                return;
+            }
 
-            programas.forEach(programa => {
-                const metadatosBusqueda = programa.getAttribute('data-keywords');
-                if (metadatosBusqueda && metadatosBusqueda.includes(entradaSegura)) {
-                    programa.style.display = 'block';
+            // Si el usuario busca algo, el script rastrea los bloques con metadatos de búsqueda
+            const elementosIndexados = document.querySelectorAll('[data-search-scope]');
+            let coincidenciaEncontrada = false;
+
+            elementosIndexados.forEach(elemento => {
+                const metadatos = elemento.getAttribute('data-search-scope').toLowerCase();
+                
+                if (metadatos.includes(entradaSegura)) {
+                    elemento.style.display = '';
+                    
+                    // 🔮 TRUCO INTELIGENTE: Si el término que buscan pertenece a otra pestaña,
+                    // el sistema cambia de pestaña automáticamente para mostrárselo al usuario
+                    if (elemento.classList.contains('tab-content') && !elemento.classList.contains('active')) {
+                        cambiarPestaña(elemento.id);
+                        // Volver a aplicar el valor de búsqueda ya que cambiarPestaña lo limpia
+                        document.getElementById('inputBuscador').value = entradaCruda;
+                    }
+                    coincidenciaEncontrada = true;
                 } else {
-                    programa.style.display = 'none';
+                    // Si el elemento es un bloque interno, se oculta individualmente
+                    if (!elemento.classList.contains('tab-content')) {
+                        elemento.style.display = 'none';
+                    }
                 }
             });
         });
