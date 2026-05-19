@@ -9,7 +9,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
     
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.firebaseio.com https://*.googleapis.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com wss://*.firebaseio.com; img-src 'self' data: https://upload.wikimedia.org; frame-src https://*.firebaseapp.com https://*.firebaseio.com;">
     <meta http-equiv="X-Frame-Options" content="DENY">
@@ -46,7 +46,6 @@
             min-height: 100vh;
         }
 
-        /* 📁 Panel de Navegación Lateral (Pestañas) */
         aside {
             width: var(--sidebar-width);
             background-color: rgba(15, 23, 42, 0.95);
@@ -121,7 +120,6 @@
             border-left-color: var(--cian-neon);
         }
 
-        /* 🌐 Contenedor de Contenido Principal */
         .content-wrapper {
             margin-left: var(--sidebar-width);
             flex: 1;
@@ -177,7 +175,6 @@
             flex: 1;
         }
 
-        /* 🎛️ Control de Visibilidad de Pestañas */
         .tab-content {
             display: none;
         }
@@ -185,7 +182,6 @@
             display: block;
         }
 
-        /* Componentes de Interfaz */
         .hero { margin-bottom: 3rem; }
         .hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
         .hero p { color: var(--texto-mutado); font-size: 1.05rem; margin: 0; }
@@ -268,7 +264,6 @@
         .disclaimer-box h3 { margin: 0 0 0.4rem 0; font-size: 1.05rem; }
         .disclaimer-box p { margin: 0; color: var(--texto-mutado); font-size: 0.9rem; line-height: 1.5; }
 
-        /* 🗝️ Estilos del Modal */
         #login-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 10, 18, 0.85); backdrop-filter: blur(8px); z-index: 999; display: none; align-items: center; justify-content: center; }
         .login-card { background: #0f172a; padding: 2.5rem; border-radius: 12px; border: 1px solid #1e293b; width: 100%; max-width: 400px; text-align: center; position: relative; }
         .close-modal-btn { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--texto-mutado); font-size: 1.2rem; cursor: pointer; }
@@ -342,7 +337,6 @@
         </header>
 
         <main>
-            
             <section id="pestaña-inicio" class="tab-content active" data-search-scope="inicio general omni audit core dashboard suite">
                 <div class="hero">
                     <h1>Portal de Seguridad OMNI-AUDIT</h1>
@@ -477,9 +471,6 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. CONFIGURACIÓN DE FIREBASE
-        // ==========================================
         const firebaseConfig = {
             apiKey: "TU_API_KEY_AQUÍ",
             authDomain: "TU_PROJECT_ID.firebaseapp.com",
@@ -524,7 +515,6 @@
 
         function cerrarModal() { document.getElementById('login-modal').style.display = 'none'; }
 
-        // Eventos Login
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
@@ -551,22 +541,12 @@
             firebase.auth().signInWithPopup(googleProvider).catch(error => alert(error.message));
         });
 
-        // ==========================================
-        // 2. SISTEMA INTERACTIVO DE PESTAÑAS (SPA)
-        // ==========================================
         function cambiarPestaña(pestañaId) {
-            // Desactivar todos los contenidos y botones
             document.querySelectorAll('.tab-content').forEach(contenido => contenido.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(boton => boton.classList.remove('active'));
-
-            // Activar el seleccionado
             document.getElementById(pestañaId).classList.add('active');
-            
-            // Buscar el botón correspondiente para iluminarlo
             const botonActivo = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(pestañaId));
             if (botonActivo) botonActivo.classList.add('active');
-
-            // Limpiar buscador al cambiar de sección
             document.getElementById('inputBuscador').value = "";
             mostrarTodosLosElementos();
         }
@@ -577,40 +557,25 @@
             });
         }
 
-        // ==========================================
-        // 3. BUSCADOR GLOBAL INTELIGENTE ENTRE PESTAÑAS
-        // ==========================================
         document.getElementById('inputBuscador').addEventListener('input', function(e) {
             const entradaCruda = e.target.value;
             const controlDiv = document.createElement('div');
             controlDiv.textContent = entradaCruda;
             const entradaSegura = controlDiv.innerHTML.toLowerCase().trim();
-
             if (entradaSegura === "") {
                 mostrarTodosLosElementos();
                 return;
             }
-
-            // Si el usuario busca algo, el script rastrea los bloques con metadatos de búsqueda
             const elementosIndexados = document.querySelectorAll('[data-search-scope]');
-            let coincidenciaEncontrada = false;
-
             elementosIndexados.forEach(elemento => {
                 const metadatos = elemento.getAttribute('data-search-scope').toLowerCase();
-                
                 if (metadatos.includes(entradaSegura)) {
                     elemento.style.display = '';
-                    
-                    // 🔮 TRUCO INTELIGENTE: Si el término que buscan pertenece a otra pestaña,
-                    // el sistema cambia de pestaña automáticamente para mostrárselo al usuario
                     if (elemento.classList.contains('tab-content') && !elemento.classList.contains('active')) {
                         cambiarPestaña(elemento.id);
-                        // Volver a aplicar el valor de búsqueda ya que cambiarPestaña lo limpia
                         document.getElementById('inputBuscador').value = entradaCruda;
                     }
-                    coincidenciaEncontrada = true;
                 } else {
-                    // Si el elemento es un bloque interno, se oculta individualmente
                     if (!elemento.classList.contains('tab-content')) {
                         elemento.style.display = 'none';
                     }
