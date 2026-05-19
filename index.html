@@ -9,7 +9,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src https://*.firebaseio.com https://*.googleapis.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.firebaseio.com https://*.googleapis.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com wss://*.firebaseio.com; img-src 'self' data: https://upload.wikimedia.org; frame-src https://*.firebaseapp.com https://*.firebaseio.com;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     
     <title>OMNI-AUDIT | Cyber Defense Framework</title>
@@ -351,7 +351,7 @@
             background-color: rgba(15, 23, 42, 0.2);
         }
 
-        /* 🗝️ Estilos del Modal Flotante de Login (Oculto por defecto con display: none) */
+        /* 🗝️ Modal de Autenticación */
         #login-modal {
             position: fixed;
             top: 0;
@@ -361,7 +361,7 @@
             background: rgba(7, 10, 18, 0.85);
             backdrop-filter: blur(8px);
             z-index: 999;
-            display: none; /* Se activa dinámicamente con JavaScript */
+            display: none; /* Controlado dinámicamente */
             align-items: center;
             justify-content: center;
         }
@@ -421,4 +421,261 @@
             
             <form id="login-form" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
                 <div>
-                    <label style="font-size: 0.8
+                    <label style="font-size: 0.85rem; color: #9ca3af; display: block; margin-bottom: 0.4rem;">Correo Electrónico</label>
+                    <input type="email" id="login-email" class="login-input" required autocomplete="username">
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; color: #9ca3af; display: block; margin-bottom: 0.4rem;">Contraseña</label>
+                    <input type="password" id="login-password" class="login-input" required autocomplete="current-password">
+                </div>
+                <button type="submit" style="background: var(--cian-neon); color: #070a12; border: none; padding: 0.75rem; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 0.5rem; font-size: 0.95rem; width: 100%;">Ingresar / Registrarse</button>
+            </form>
+            
+            <div style="margin: 1.3rem 0; color: #4b5563; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;">— O BIEN —</div>
+            
+            <button id="btn-google" style="width: 100%; padding: 0.75rem; background: #fff; color: #000; border: none; border-radius: 6px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; font-size: 0.95rem;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width: 18px;">
+                Continuar con Google
+            </button>
+        </div>
+    </div>
+
+    <header>
+        <div class="brand-container">
+            <div class="logo-circular">
+                <i class="fa-solid fa-user-secret"></i>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="logo-texto">
+                <span class="logo-titulo">OMNI-AUDIT</span>
+                <span class="logo-subtitulo">Cyber Defense Framework</span>
+            </div>
+        </div>
+        
+        <div class="buscador-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="inputBuscador" placeholder="Buscar módulos o especificaciones..." autocomplete="off">
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Suite Automatizada de Seguridad de la Información</h1>
+            <p>Infraestructura optimizada para la auditoría y detección proactiva de vectores de ataque web bajo estándares OWASP.</p>
+        </section>
+
+        <section class="seccion-programas" id="contenedorProgramas">
+            
+            <article class="programa-detallado" data-keywords="miscanner web python osint recon footprinting crawling informacion">
+                <div class="programa-meta">
+                    <div class="programa-titulo">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <div>
+                            <h2>MiScanner_Web (v9.0)</h2>
+                            <div class="tags" style="margin-top: 0.5rem;">
+                                <span class="tag">Python 3</span>
+                                <span class="tag">Reconnaissance</span>
+                                <span class="tag">OSINT Engine</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div onclick="verificarAcceso('https://github.com/isaiasrb77/MiScanner_Web')" class="btn-link">
+                        <i class="fa-brands fa-github"></i> Código Fuente
+                    </div>
+                </div>
+                
+                <h3>Función Principal</h3>
+                <p>Automatizar las fases críticas de reconocimiento pasivo y activo (*Footprinting*) sobre aplicaciones web expuestas para delimitar perímetros de red y vulnerabilidades lógicas preliminares.</p>
+                
+                <h3>Funcionalidades Clave</h3>
+                <div class="funcionalidades-grid">
+                    <div class="funcionalidad-item">
+                        <h4><i class="fa-solid fa-spider"></i> Web Crawling Inteligente</h4>
+                        <p>Mapeo algorítmico recursivo de directorios ocultos, indexación de archivos y descubrimiento de endpoints internos.</p>
+                    </div>
+                    <div class="funcionalidad-item">
+                        <h4><i class="fa-solid fa-fingerprint"></i> Extracción OSINT</h4>
+                        <p>Recolección y análisis de cabeceras HTTP de servidores, identificación de tecnologías obsoletas y fugas de metadatos.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="programa-detallado" data-keywords="scanner vulnerabilidades owasp sqli xss lfi fuzzer brute force hydra exploits">
+                <div class="programa-meta">
+                    <div class="programa-titulo">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <h2>ScannerVulnerabilidades (v9.0)</h2>
+                            <div class="tags" style="margin-top: 0.5rem;">
+                                <span class="tag">Pentesting Suite</span>
+                                <span class="tag">OWASP Top 10</span>
+                                <span class="tag">Automation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div onclick="verificarAcceso('https://github.com/isaiasrb77/ScannerVulnerabilidades')" class="btn-link">
+                        <i class="fa-brands fa-github"></i> Código Fuente
+                    </div>
+                </div>
+                
+                <h3>Función Principal</h3>
+                <p>Framework modular parametrizado para la inyección controlada de cargas y stress-testing sobre puntos de entrada interactivos, validando la solidez de las defensas web.</p>
+                
+                <h3>Funcionalidades Clave</h3>
+                <div class="funcionalidades-grid">
+                    <div class="funcionalidad-item">
+                        <h4><i class="fa-solid fa-bug"></i> Fuzzing Temático OWASP</h4>
+                        <p>Detección proactiva de inyecciones SQL (SQLi), Cross-Site Scripting (XSS) y Local File Inclusion (LFI) mediante diccionarios dinámicos.</p>
+                    </div>
+                    <div class="funcionalidad-item">
+                        <h4><i class="fa-solid fa-key"></i> Auditoría de Fuerza Bruta</h4>
+                        <p>Módulos de autenticación de red acoplados nativamente con diccionarios optimizados para auditar la robustez de credenciales.</p>
+                    </div>
+                    <div class="funcionalidad-item">
+                        <h4><i class="fa-solid fa-file-shield"></i> Reportes de Hardening</h4>
+                        <p>Consolidación instantánea de vectores descubiertos estructurados de manera cronológica en logs locales ordenados por IP.</p>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="disclaimer-box">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+                <h3>Aviso de Exención de Responsabilidad y Uso Ético</h3>
+                <p>Las herramientas descritas en este portal han sido desarrolladas exclusivamente para fines de investigación académica, optimización de sistemas y auditorías de penetración legítimas bajo mutuo acuerdo escrito. El uso de este software sin autorización expresa en entornos ajenos es estrictamente ilegal y sancionable por las leyes internacionales de delitos de alta tecnología.</p>
+            </div>
+        </div>
+
+        <section class="seccion-legal">
+            <h3><i class="fa-solid fa-gavel"></i> Licencia y Protección de Propiedad Intelectual</h3>
+            <p><strong>© 2026 OMNI-AUDIT Developers. Todos los derechos reservados.</strong></p>
+            <p>Queda estrictamente prohibida la reproducción, distribution, comercialización, ingeniería inversa o modificación total o parcial del código fuente de las aplicaciones aquí listadas sin la autorización expresa, previa y por escrito del autor legítimo. El código expuesto en los repositorios de GitHub vinculados opera bajo términos de **Propiedad Intelectual Estricta**, diseñada para resguardar la autoría intelectual frente a plagios o reclamaciones comerciales de terceros no autorizados.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Portal Asegurado Estáticamente | Arquitectura Anti-Vulnerabilidades | República Dominicana.</p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // 1. INITIALIZE FIREBASE AUTHENTICATION
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY_AQUÍ",
+            authDomain: "TU_PROJECT_ID.firebaseapp.com",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_PROJECT_ID.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        // Verificación estructural preventiva para evitar pantallas negras en caso de llaves vacías
+        if (firebaseConfig.apiKey !== "TU_API_KEY_AQUÍ") {
+            firebase.initializeApp(firebaseConfig);
+        } else {
+            console.warn("OMNI-AUDIT: Firebase operando en modo simulación de desarrollo local.");
+        }
+
+        let usuarioAutenticado = null;
+        let urlDestinoPendiente = null;
+
+        // Escucha en tiempo real si Firebase está inicializado
+        try {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    usuarioAutenticado = user;
+                    cerrarModal();
+                    if (urlDestinoPendiente) {
+                        window.open(urlDestinoPendiente, '_blank', 'noopener,noreferrer');
+                        urlDestinoPendiente = null;
+                    }
+                } else {
+                    usuarioAutenticado = null;
+                }
+            });
+        } catch(e) {
+            console.log("Firebase Auth pendiente de credenciales reales.");
+        }
+
+        // ==========================================
+        // 2. FUNCIÓN GUARDA DE ACCESO (GATEKEEPER)
+        // ==========================================
+        function verificarAcceso(urlDestino) {
+            // Modo Desarrollo/Producción unificado
+            if (usuarioAutenticado || firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
+                if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
+                    console.log("Acceso de prueba permitido (Entorno Local).");
+                }
+                window.open(urlDestino, '_blank', 'noopener,noreferrer');
+            } else {
+                urlDestinoPendiente = urlDestino;
+                document.getElementById('login-modal').style.display = 'flex';
+            }
+        }
+
+        function cerrarModal() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+
+        // Evento: Formulario tradicional (Email/Password)
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
+                alert("Simulación de éxito: Configura tus credenciales reales de Firebase.");
+                cerrarModal();
+                if (urlDestinoPendiente) { window.open(urlDestinoPendiente, '_blank'); }
+                return;
+            }
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .catch(error => {
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                        return firebase.auth().createUserWithEmailAndPassword(email, password);
+                    } else {
+                        alert("Error de credenciales: " + error.message);
+                    }
+                });
+        });
+
+        // Evento: Google Login OAuth Pop-up
+        document.getElementById('btn-google').addEventListener('click', () => {
+            if (firebaseConfig.apiKey === "TU_API_KEY_AQUÍ") {
+                alert("Simulación de Google Auth exitosa.");
+                cerrarModal();
+                if (urlDestinoPendiente) { window.open(urlDestinoPendiente, '_blank'); }
+                return;
+            }
+            const googleProvider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(googleProvider).catch(error => {
+                alert("Error de conexión con Google: " + error.message);
+            });
+        });
+
+        // ==========================================
+        // 3. BUSCADOR INTERNO SANITIZADO
+        // ==========================================
+        document.getElementById('inputBuscador').addEventListener('input', function(e) {
+            const entradaCruda = e.target.value;
+            const contenedorDeControl = document.createElement('div');
+            contenedorDeControl.textContent = entradaCruda;
+            const entradaSegura = contenedorDeControl.innerHTML.toLowerCase().trim();
+
+            const programas = document.querySelectorAll('.programa-detallado');
+
+            programas.forEach(programa => {
+                const metadatosBusqueda = programa.getAttribute('data-keywords');
+                if (metadatosBusqueda && metadatosBusqueda.includes(entradaSegura)) {
+                    programa.style.display = 'block';
+                } else {
+                    programa.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
